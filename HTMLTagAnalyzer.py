@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, uic
-from bs4 import BeautifulSoup as bs4
-import requests, sys
+from bs4 import BeautifulSoup as Bs4
+import requests
+import sys
 
 
 class App(QtWidgets.QMainWindow):
@@ -10,7 +11,26 @@ class App(QtWidgets.QMainWindow):
         self.pushButton.clicked.connect(self.onClick)
 
     def onClick(self):
-        print("It's Alive...")
+        url = self.lineEdit.text()
+        parseHTML(url)
+
+
+def parseHTML(url):
+    page = requests.get(url)
+    soup = Bs4(page.content, 'html.parser')
+
+    tagDict = {}
+
+    for tag in soup.findAll():
+        if tag.name in tagDict.keys():
+            tagDict[tag.name] += 1
+        else:
+            tagDict[tag.name] = 1
+
+    # To be removed, testing return values are correct
+    for keys, values in tagDict.items():
+        print(keys)
+        print(values)
 
 
 if __name__ == '__main__':
