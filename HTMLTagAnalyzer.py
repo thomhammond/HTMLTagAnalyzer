@@ -13,10 +13,11 @@ class App(QtWidgets.QMainWindow):
 
         self.tableWidget.setHorizontalHeaderLabels(['HTML Tag ID', 'Occurrences'])
 
-        # Not working. Need to convert strings to QTableWidgetItems or possibly use QTableView instead
-        tagTypes = ['a', 'ol', 'ul', 'li', 'img', 'p', 'form', 'h', 'br', 'font']
-        for i in range(self.tableWidget.rowCount()):
-            self.tableWidget.setItem(0, i, tagTypes[i])
+        # Working but I would like to create tagTypes list dynamically
+        tagTypes = ['a', 'title', 'h', 'p', 'li', 'ol', 'ul', 'font', 'img', 'link', 'form']
+        for i in range(len(tagTypes)):
+            item = QtWidgets.QTableWidgetItem(tagTypes[i])
+            self.tableWidget.setItem(i, 0, item)
 
     def onClick(self):
         url = self.lineEdit.text()

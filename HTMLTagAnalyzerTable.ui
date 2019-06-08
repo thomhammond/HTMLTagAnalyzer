@@ -37,8 +37,11 @@
     <property name="frameShadow">
      <enum>QFrame::Sunken</enum>
     </property>
+    <property name="textElideMode">
+     <enum>Qt::ElideMiddle</enum>
+    </property>
     <property name="rowCount">
-     <number>10</number>
+     <number>20</number>
     </property>
     <property name="columnCount">
      <number>2</number>
@@ -61,6 +64,16 @@
     <attribute name="verticalHeaderStretchLastSection">
      <bool>true</bool>
     </attribute>
+    <row/>
+    <row/>
+    <row/>
+    <row/>
+    <row/>
+    <row/>
+    <row/>
+    <row/>
+    <row/>
+    <row/>
     <row/>
     <row/>
     <row/>
