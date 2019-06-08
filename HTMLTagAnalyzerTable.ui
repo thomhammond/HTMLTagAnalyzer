@@ -41,7 +41,7 @@
      <enum>Qt::ElideMiddle</enum>
     </property>
     <property name="rowCount">
-     <number>25</number>
+     <number>30</number>
     </property>
     <property name="columnCount">
      <number>2</number>
@@ -64,6 +64,11 @@
     <attribute name="verticalHeaderStretchLastSection">
      <bool>true</bool>
     </attribute>
+    <row/>
+    <row/>
+    <row/>
+    <row/>
+    <row/>
     <row/>
     <row/>
     <row/>
@@ -129,7 +134,7 @@
     <property name="geometry">
      <rect>
       <x>216</x>
-      <y>235</y>
+      <y>240</y>
       <width>110</width>
       <height>32</height>
      </rect>
@@ -149,7 +154,7 @@
       <x>360</x>
       <y>40</y>
       <width>200</width>
-      <height>20</height>
+      <height>25</height>
      </rect>
     </property>
     <property name="font">
@@ -158,7 +163,10 @@
      </font>
     </property>
     <property name="text">
-     <string>Google.com</string>
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

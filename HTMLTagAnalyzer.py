@@ -1,8 +1,8 @@
 from PyQt5 import QtWidgets, uic
 from bs4 import BeautifulSoup as Bs4
+from tld import get_tld
 import requests
 import sys
-import tld
 
 
 class App(QtWidgets.QMainWindow):
@@ -14,10 +14,9 @@ class App(QtWidgets.QMainWindow):
         self.tableWidget.setHorizontalHeaderLabels(['HTML Tag ID', 'Occurrences'])
 
     def onClick(self):
+        self.clearTable()
         url = self.lineEdit.text()
-        tagsAndCounts = parseHTML(url)
-        self.fillTable(tagsAndCounts)
-        self.lineEdit.clear()
+        self.parseHTML(url)
 
     def fillTable(self, tagsAndCounts):
         row = 0
@@ -28,20 +27,40 @@ class App(QtWidgets.QMainWindow):
             self.tableWidget.setItem(row, 1, count)
             row += 1
 
+    def clearTable(self):
+        for i in range(self.tableWidget.rowCount()):
+            self.tableWidget.setItem(i, 0, QtWidgets.QTableWidgetItem(''))
+            self.tableWidget.setItem(i, 1, QtWidgets.QTableWidgetItem(''))
 
-def parseHTML(url):
-    page = requests.get(url)
-    soup = Bs4(page.content, 'html.parser')
+    def validURL(self, url, tagsAndCounts):
+        self.fillTable(tagsAndCounts)
+        self.lineEdit.clear()
+        res = get_tld(url, as_object=True)
+        self.label_2.setText(str(res.fld))
 
-    tagDict = {}
+    def invalidURL(self):
+        self.lineEdit.clear()
+        self.label_2.setText('Invalid Entry')
 
-    for tag in soup.findAll():
-        if tag.name in tagDict.keys():
-            tagDict[tag.name] += 1
+    def parseHTML(self, url):
+        if not url.startswith('https://'):
+            self.invalidURL()
         else:
-            tagDict[tag.name] = 1
+            page = requests.get(url)
+            if page.status_code != 200:
+                self.invalidURL()
+            else:
+                soup = Bs4(page.content, 'html.parser')
 
-    return tagDict
+                tagDict = {}
+
+                for tag in soup.findAll():
+                    if tag.name in tagDict.keys():
+                        tagDict[tag.name] += 1
+                    else:
+                        tagDict[tag.name] = 1
+
+                self.validURL(url, tagDict)
 
 
 if __name__ == '__main__':
