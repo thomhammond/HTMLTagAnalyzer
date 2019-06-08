@@ -10,18 +10,21 @@ class App(QtWidgets.QMainWindow):
         super(App, self).__init__()
         uic.loadUi("HTMLTagAnalyzerTable.ui", self)
         self.pushButton.clicked.connect(self.onClick)
-
         self.tableWidget.setHorizontalHeaderLabels(['HTML Tag ID', 'Occurrences'])
-
-        # Working but I would like to create tagTypes list dynamically
-        tagTypes = ['a', 'title', 'h', 'p', 'li', 'ol', 'ul', 'font', 'img', 'link', 'form']
-        for i in range(len(tagTypes)):
-            item = QtWidgets.QTableWidgetItem(tagTypes[i])
-            self.tableWidget.setItem(i, 0, item)
 
     def onClick(self):
         url = self.lineEdit.text()
-        parseHTML(url)
+        tagsAndCounts = parseHTML(url)
+        self.fillTable(tagsAndCounts)
+
+    def fillTable(self, tagsAndCounts):
+        row = 0
+        for key, value in tagsAndCounts.items():
+            tag = QtWidgets.QTableWidgetItem(key)
+            count = QtWidgets.QTableWidgetItem(str(value))
+            self.tableWidget.setItem(row, 0, tag)
+            self.tableWidget.setItem(row, 1, count)
+            row += 1
 
 
 def parseHTML(url):
@@ -36,10 +39,7 @@ def parseHTML(url):
         else:
             tagDict[tag.name] = 1
 
-    # To be removed, testing return values are correct
-    for keys, values in tagDict.items():
-        print(keys)
-        print(values)
+    return tagDict
 
 
 if __name__ == '__main__':
