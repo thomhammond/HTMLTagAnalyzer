@@ -2,6 +2,7 @@ from PyQt5 import QtWidgets, uic
 from bs4 import BeautifulSoup as Bs4
 import requests
 import sys
+import tld
 
 
 class App(QtWidgets.QMainWindow):
@@ -16,6 +17,7 @@ class App(QtWidgets.QMainWindow):
         url = self.lineEdit.text()
         tagsAndCounts = parseHTML(url)
         self.fillTable(tagsAndCounts)
+        self.lineEdit.clear()
 
     def fillTable(self, tagsAndCounts):
         row = 0
