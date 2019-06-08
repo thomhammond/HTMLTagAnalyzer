@@ -5,10 +5,18 @@ import sys
 
 
 class App(QtWidgets.QMainWindow):
+
     def __init__(self):
         super(App, self).__init__()
-        uic.loadUi("HTMLTagAnalyzer.ui", self)
+        uic.loadUi("HTMLTagAnalyzerTable.ui", self)
         self.pushButton.clicked.connect(self.onClick)
+
+        self.tableWidget.setHorizontalHeaderLabels(['HTML Tag ID', 'Occurrences'])
+
+        # Not working. Need to convert strings to QTableWidgetItems or possibly use QTableView instead
+        tagTypes = ['a', 'ol', 'ul', 'li', 'img', 'p', 'form', 'h', 'br', 'font']
+        for i in range(self.tableWidget.rowCount()):
+            self.tableWidget.setItem(0, i, tagTypes[i])
 
     def onClick(self):
         url = self.lineEdit.text()
