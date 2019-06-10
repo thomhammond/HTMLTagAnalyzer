@@ -43,7 +43,7 @@ class App(QtWidgets.QMainWindow):
         self.label_2.setText('Invalid Entry')
 
     def parseHTML(self, url):
-        if not url.startswith('https://'):
+        if not url.startswith('http'):
             self.invalidURL()
         else:
             page = requests.get(url)
