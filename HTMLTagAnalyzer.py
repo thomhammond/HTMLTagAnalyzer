@@ -45,10 +45,12 @@ class App(QtWidgets.QMainWindow):
     def parseHTML(self, url):
         if not url.startswith('http'):
             self.invalidURL()
+            return False
         else:
             page = requests.get(url)
             if page.status_code != 200:
                 self.invalidURL()
+                return False
             else:
                 soup = Bs4(page.content, 'html.parser')
 
@@ -61,6 +63,7 @@ class App(QtWidgets.QMainWindow):
                         tagDict[tag.name] = 1
 
                 self.validURL(url, tagDict)
+                return True
 
 
 if __name__ == '__main__':
