@@ -1,11 +1,8 @@
-from PyQt5 import QtWidgets, uic
-from PyQt5 import QtTest
-from PyQt5 import QtCore
-# from bs4 import BeautifulSoup as Bs4
-# from tld import get_tld
-# import requests
 import sys
 import unittest
+from PyQt5 import QtWidgets
+from PyQt5 import QtTest
+from PyQt5 import QtCore
 
 import HTMLTagAnalyzer
 
@@ -15,12 +12,12 @@ app = QtWidgets.QApplication(sys.argv)
 class TestApp(unittest.TestCase):
     def setUp(self):
         self.win = HTMLTagAnalyzer.App()
+        self.analyzeButton = self.win.pushButton
 
     # test GUI state on 'analyze' button click with no input
     def test_analyze_button_1(self):
         # click button
-        analyzeButton = self.win.pushButton
-        QtTest.QTest.mouseClick(analyzeButton, QtCore.Qt.LeftButton)
+        QtTest.QTest.mouseClick(self.analyzeButton, QtCore.Qt.LeftButton)
 
         # test URL input is an empty string
         self.assertEqual(self.win.lineEdit.text(), '')
@@ -33,8 +30,7 @@ class TestApp(unittest.TestCase):
         self.win.lineEdit.setText('https://www.google.com/')
 
         # click button
-        analyzeButton = self.win.pushButton
-        QtTest.QTest.mouseClick(analyzeButton, QtCore.Qt.LeftButton)
+        QtTest.QTest.mouseClick(self.analyzeButton, QtCore.Qt.LeftButton)
 
         # test URL input has been cleared
         self.assertEqual(self.win.lineEdit.text(), '')
@@ -47,8 +43,7 @@ class TestApp(unittest.TestCase):
         self.win.lineEdit.setText('www.google.com')
 
         # click button
-        analyzeButton = self.win.pushButton
-        QtTest.QTest.mouseClick(analyzeButton, QtCore.Qt.LeftButton)
+        QtTest.QTest.mouseClick(self.analyzeButton, QtCore.Qt.LeftButton)
 
         # test URL input has been cleared
         self.assertEqual(self.win.lineEdit.text(), '')
@@ -61,8 +56,7 @@ class TestApp(unittest.TestCase):
         self.win.lineEdit.setText('invalidString')
 
         # click button
-        analyzeButton = self.win.pushButton
-        QtTest.QTest.mouseClick(analyzeButton, QtCore.Qt.LeftButton)
+        QtTest.QTest.mouseClick(self.analyzeButton, QtCore.Qt.LeftButton)
 
         # test URL input is an empty string
         self.assertEqual(self.win.lineEdit.text(), '')
