@@ -1,18 +1,73 @@
 from PyQt5 import QtWidgets, uic
+from PyQt5 import QtTest
+from PyQt5 import QtCore
 # from bs4 import BeautifulSoup as Bs4
 # from tld import get_tld
 # import requests
-# import sys
+import sys
 import unittest
 
 import HTMLTagAnalyzer
 
-app = QtWidgets.QApplication([])
+app = QtWidgets.QApplication(sys.argv)
 
 
 class TestApp(unittest.TestCase):
     def setUp(self):
         self.win = HTMLTagAnalyzer.App()
+
+    # test GUI state on 'analyze' button click with no input
+    def test_analyze_button_1(self):
+        # click button
+        analyzeButton = self.win.pushButton
+        QtTest.QTest.mouseClick(analyzeButton, QtCore.Qt.LeftButton)
+
+        # test URL input is an empty string
+        self.assertEqual(self.win.lineEdit.text(), '')
+        # test table label is set to 'Invalid Entry'
+        self.assertEqual(self.win.label_2.text(), 'Invalid Entry')
+
+    # test GUI state on 'analyze' button click with valid input
+    def test_analyze_button_2(self):
+        # create valid input
+        self.win.lineEdit.setText('https://www.google.com/')
+
+        # click button
+        analyzeButton = self.win.pushButton
+        QtTest.QTest.mouseClick(analyzeButton, QtCore.Qt.LeftButton)
+
+        # test URL input has been cleared
+        self.assertEqual(self.win.lineEdit.text(), '')
+        # test table label is set to 'Invalid Entry'
+        self.assertEqual(self.win.label_2.text(), 'google.com')
+
+    # test GUI state on 'analyze' button click with invalid input 'www.google.com'
+    def test_analyze_button_3(self):
+        # create valid input
+        self.win.lineEdit.setText('www.google.com')
+
+        # click button
+        analyzeButton = self.win.pushButton
+        QtTest.QTest.mouseClick(analyzeButton, QtCore.Qt.LeftButton)
+
+        # test URL input has been cleared
+        self.assertEqual(self.win.lineEdit.text(), '')
+        # test table label is set to 'Invalid Entry'
+        self.assertEqual(self.win.label_2.text(), 'Invalid Entry')
+
+    # test GUI state on 'analyze' button click with invalid input 'invalidString'
+    def test_analyze_button_4(self):
+        # create invalid input
+        self.win.lineEdit.setText('invalidString')
+
+        # click button
+        analyzeButton = self.win.pushButton
+        QtTest.QTest.mouseClick(analyzeButton, QtCore.Qt.LeftButton)
+
+        # test URL input is an empty string
+        self.assertEqual(self.win.lineEdit.text(), '')
+        # test table label is set to 'Invalid Entry'
+        self.assertEqual(self.win.label_2.text(), 'Invalid Entry')
 
     def test_parseHTML_returns_correct_true_value(self):
         self.assertTrue(self.win.parseHTML("https://www.google.com/"))
