@@ -4,7 +4,6 @@ from tld import get_tld
 import requests
 import sys
 
-
 class App(QtWidgets.QMainWindow):
 
     def __init__(self):

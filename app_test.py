@@ -1,8 +1,5 @@
-from PyQt5 import QtWidgets, uic
-# from bs4 import BeautifulSoup as Bs4
-# from tld import get_tld
-# import requests
-# import sys
+from PyQt5 import QtWidgets
+
 import unittest
 
 import HTMLTagAnalyzer
