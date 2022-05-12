@@ -7,7 +7,7 @@ HTML Tag Analyzer is a basic demo app that takes in a URL and generates a table 
 First clone the repo:
 
 ```
-git clone https://github.com/ThomasHammond/HTMLTagAnalyzer.git
+git clone https://github.com/thomhammond/HTMLTagAnalyzer.git
 ```
 
 
@@ -19,8 +19,6 @@ the required libraries and dependencies by running:
 ```
 pip install -r requirements.txt
 ```
-
-\*** If you're having trouble with installing PyQt5 and you're using a Mac with an M1 chip, please read [this](URL "https://stackoverflow.com/questions/65901162/how-can-i-run-pyqt5-on-my-mac-with-m1chip") \***
 
 and initialize the app by typing:
 
